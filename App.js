@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-// Tela para adicionar produtos
+
 function AddProductScreen({ navigation }) {
   const [nomeProduto, setNomeProduto] = useState('');
   const [precoProduto, setPrecoProduto] = useState('');
 
   async function salvar() {
+    if (!nomeProduto.trim() || !precoProduto.trim()) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
     let produtos = [];
     if (await AsyncStorage.getItem('PRODUTOS') !== null) {
       produtos = JSON.parse(await AsyncStorage.getItem('PRODUTOS'));
@@ -24,10 +29,23 @@ function AddProductScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>CADASTRO</Text>
+    <View style={styles.formContainer}>
+      <Text>CADASTRO DE PRODUTOS </Text>
 
-      <TouchableOpacity style={styles.btn} onPress={salvar}>
+      <TextInput
+        style={styles.input}
+        placeholder="Nome do Produto"
+        value={nomeProduto}
+        onChangeText={text => setNomeProduto(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Preço"
+        value={precoProduto}
+        onChangeText={text => setPrecoProduto(text)}
+      />
+
+      <TouchableOpacity style={styles.formBtn} onPress={salvar}>
         <Text style={{ color: 'white' }}>CADASTRAR</Text>
       </TouchableOpacity>
 
@@ -38,7 +56,7 @@ function AddProductScreen({ navigation }) {
   );
 }
 
-// Tela para listar os produtos
+
 function ListProductsScreen({ navigation }) {
   const [listProdutos, setListProdutos] = useState([]);
 
@@ -76,7 +94,7 @@ function ListProductsScreen({ navigation }) {
   );
 }
 
-// Tela para excluir produtos
+
 function DeleteProductScreen({ route, navigation }) {
   const { produto } = route.params;
 
@@ -127,7 +145,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: '100%',
     borderRadius: 15,
-    backgroundColor: 'blue',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
@@ -151,4 +169,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
+  formContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  formBtn: {
+    borderWidth: 1,
+    height: 50,
+    width: '100%',
+    borderRadius: 15,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: '100%',
+    paddingHorizontal: 10,
+    marginTop: 10,
+  },
 });
+
