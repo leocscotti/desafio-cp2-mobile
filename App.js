@@ -6,12 +6,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 
 const pessoa1 = {
-  nome: 'Leonardo-RM550769',
+  nome: 'Leonardo Scotti',
+  rm: 'RM550769',
   foto: require('./assets/leo-foto.jpg')
 };
 
 const pessoa2 = {
-  nome: 'Eduardo-RM550364',
+  nome: 'Eduardo Violante',
+  rm: 'RM550364',
   foto: require('./assets/edu-foto.jpg')
 };
 
@@ -66,10 +68,12 @@ function AddProductScreen({ navigation }) {
       <View style={styles.personContainer}>
         <View style={styles.person}>
           <Text style={styles.personText}>{pessoa1.nome}</Text>
+          <Text style={styles.personText}>{pessoa1.rm}</Text>
           <Image source={pessoa1.foto} style={styles.personImage} />
         </View>
         <View style={styles.person}>
           <Text style={styles.personText}>{pessoa2.nome}</Text>
+           <Text style={styles.personText}>{pessoa2.rm}</Text>
           <Image source={pessoa2.foto} style={styles.personImage} />
         </View>
       </View>
