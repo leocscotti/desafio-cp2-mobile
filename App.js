@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, TextInput, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
 const pessoa1 = {
-  nome: 'Leonardo Scotti- RM550769',
+  nome: 'Leonardo-RM550769',
   foto: require('./assets/leo-foto.jpg')
 };
 
 const pessoa2 = {
-  nome: 'Eduardo Violante- RM550364',
+  nome: 'Eduardo-RM550364',
   foto: require('./assets/edu-foto.jpg')
 };
 
@@ -64,17 +64,17 @@ function AddProductScreen({ navigation }) {
       </TouchableOpacity>
       
       <View style={styles.personContainer}>
-        <Text style={styles.personText}>{pessoa1.nome}</Text>
-        <Image source={pessoa1.foto} style={styles.personImage} />
+        <View style={styles.person}>
+          <Text style={styles.personText}>{pessoa1.nome}</Text>
+          <Image source={pessoa1.foto} style={styles.personImage} />
+        </View>
+        <View style={styles.person}>
+          <Text style={styles.personText}>{pessoa2.nome}</Text>
+          <Image source={pessoa2.foto} style={styles.personImage} />
+        </View>
       </View>
 
-      <View style={styles.personContainer}>
-        <Text style={styles.personText}>{pessoa2.nome}</Text>
-        <Image source={pessoa2.foto} style={styles.personImage} />
-      </View>
-
-      </View>
-
+    </View>
   );
 }
 
@@ -217,17 +217,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   personContainer: {
-  alignItems: 'center',
-  marginTop: 20,
-},
-personText: {
-  fontSize: 18,
-},
-personImage: {
-  width: 100,
-  height: 100,
-  borderRadius: 50,
-  marginTop: 10,
-}
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  person: {
+    alignItems: 'center',
+  },
+  personText: {
+    fontSize: 15,
+    paddingHorizontal: 10,
+  },
+  personImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginTop: 5,
+  }
 });
 
